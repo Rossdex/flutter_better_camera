@@ -371,8 +371,8 @@ class CameraController extends ValueNotifier<CameraValue> {
       value = value.copyWith(isTakingPicture: false);
       throw CameraException(e.code, e.message);
     } on TimeoutException catch (e) {
-      value = value.copyWith(isTakingPicture: false);
-      value = value.copyWith(isTakingPicture: true);
+      // value = value.copyWith(isTakingPicture: false);
+      // value = value.copyWith(isTakingPicture: true);
       await setAutoFocus(false);
       await _channel.invokeMethod<void>(
         'takePicture',
