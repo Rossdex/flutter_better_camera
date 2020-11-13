@@ -400,9 +400,12 @@ class CameraController extends ValueNotifier<CameraValue> {
         <String, dynamic>{'textureId': _textureId, 'path': path},
       );
       value = value.copyWith(isTakingPicture: false);
-    } on PlatformException catch (e) {
+     on PlatformException catch (e) {
       value = value.copyWith(isTakingPicture: false);
       throw CameraException(e.code, e.message);
+    } on TimeoutException catch (e) {
+      value = value.copyWith(isTakingPicture: false);
+      throw TimeoutException(e.code, e.message);
     }
   }
 
