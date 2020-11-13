@@ -365,13 +365,15 @@ class CameraController extends ValueNotifier<CameraValue> {
           'textureId': _textureId,
           'path': path
         },
-      ).timeout(Duration(milliseconds: 200));
+      ).timeout(Duration(seconds: 2));
       value = value.copyWith(isTakingPicture: false);
     } on PlatformException catch (e) {
       value = value.copyWith(isTakingPicture: false);
       throw CameraException(e.code, e.message);
     } on TimeoutException catch (e) {
       print("timeoutExecption");
+      value = value.copyWith(isTakingPicture: false);
+
       await setAutoFocus(false);
       await _channel.invokeMethod<void>(
         'takePicture',
